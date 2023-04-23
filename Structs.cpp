@@ -54,8 +54,13 @@ using json = nlohmann::json;
 
             startTime = GetTime(); // сохраняем текущее время
 
+<<<<<<< HEAD
             exists = true;
             frameRec;
+=======
+            exists = false;
+            frameRec; 
+>>>>>>> 1c4b730 (small changes)
             speedHero = 2.0f;
             points = 0;
             nextFrameDataOffset = 0;
@@ -65,6 +70,7 @@ using json = nlohmann::json;
             flipsCounterRight = 1;
 
         }
+<<<<<<< HEAD
         void countPoint(int &num, bool exist){
 
 
@@ -80,24 +86,93 @@ using json = nlohmann::json;
             }
 
 
+=======
+        void countPoint(int num, bool exist){
+        Timer getPointsTimer;
+            
+            StartTimer(getPointsTimer, 5.5d);
+            std::cout << "Elapsed: " << GetElapsed(getPointsTimer) << std::endl;
+            //DrawText(TextFormat("PositionframeRecX: %04d", static_cast<int>(GetElapsed(getPointsTimer))), 30, 80, 20, WHITE);
+
+
+            //TimerDone(getPointsTimer) && exist
+            if (TimerDone(getPointsTimer) && exist){
+                getPointsTimer.startTime = GetTime();
+                num++;
+                std::cout << "----" << std::endl;
+                std::cout << "second: " << static_cast<int>(GetElapsed(getPointsTimer)) << std::endl;
+                std::cout << "----" << std::endl;
+                std::cout << "num: " << num << std::endl;
+                std::cout << "----" << std::endl;
+
+            }
+
+>>>>>>> 1c4b730 (small changes)
         }
+         
+        int countPointRet(int num, bool exist){
+        Timer getPointsTimer;
+            
+            StartTimer(getPointsTimer, 5.5d);
+            std::cout << "Elapsed: " << GetElapsed(getPointsTimer) << std::endl;
+            DrawText(TextFormat("PositionframeRecX: %04d", static_cast<int>(GetElapsed(getPointsTimer))), 30, 80, 20, WHITE);
+
+
+            //
+            if (!(TimerDone(getPointsTimer) && exist)){
+                getPointsTimer.startTime = GetTime();
+                num++;
+                //std::cout << "----" << std::endl;
+                //std::cout << "second: " << static_cast<int>(GetElapsed(getPointsTimer)) << std::endl;
+                //std::cout << "----" << std::endl;
+                //std::cout << "num: " << num << std::endl;
+                //std::cout << "----" << std::endl;
+                
+            }
+            return static_cast<int>(GetElapsed(getPointsTimer));
+        }
+        
         bool IsExist(){
             return exists;
         }
+<<<<<<< HEAD
         void clickEventListen(){
 
+=======
+        void clickEventListen(Camera2D camera){
+            
+>>>>>>> 1c4b730 (small changes)
 
             Vector2 PositionClick = GetMousePosition();
+            PositionClick = GetScreenToWorld2D(PositionClick, camera);
 
-            if (CheckCollisionPointRec(PositionClick, frameRec) && IsMouseButtonDown(0) && exists)
+            //
+            //DrawText(TextFormat("PositionMouseX: %04f", PositionClick.x), 30, 20, 20, WHITE);
+            //DrawText(TextFormat("PositionMouseY: %04f", PositionClick.y), 30, 50, 20, WHITE);
+
+            
+
+            //DrawText(TextFormat("PositionframeRecX: %04f", frameRec.x), 30, 80, 20, WHITE);
+            //DrawText(TextFormat("PositionframeRecY: %04f", frameRec.y), 30, 110, 20, WHITE);
+            
+
+
+
+
+            if (CheckCollisionPointRec(PositionClick, frameRec) && IsMouseButtonDown(0) && !exists)
             {
                 UpdateTexture(imgAnim, NULL);
-                DrawText("You clicked!", 200, 200, 60, RED);
+                
 
+<<<<<<< HEAD
 
                 exists = false;
+=======
+                
+                exists = true;
+>>>>>>> 1c4b730 (small changes)
             }
-            if (!exists)
+            if (exists)
             {
 
 
