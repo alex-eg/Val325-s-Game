@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "D:/Program/raylib/Sourse/include/raylib-cpp.hpp"
+#include "raylib-cpp.hpp"
 #include "Structs.cpp"
 #include "Utils.cpp"
 #include <nlohmann/json.hpp>
@@ -16,7 +16,7 @@ using json = nlohmann::json;
     struct RoomStruct RoomInfo;
     struct TileStruct FloorTile;
 
-    
+
 
     const char* bool_cast(const bool b) {
         return b ? "true" : "false";
@@ -31,8 +31,13 @@ void Scene1(void)
 //------------------------------------------------------------------------------------
 // Initialization
 //---   ---------------------------------------------------------------------------------
+<<<<<<< HEAD
+
+
+=======
     
-    
+    int points;
+>>>>>>> 1c4b730 (small changes)
 
     //Floor
     FloorTile.PositionSpawn = (Vector2){0, 0};
@@ -66,7 +71,7 @@ void Scene1(void)
     RoomInfo.RoomTex = LoadTextureFromImage(RoomInfo.RoomTexImg);
     RoomInfo.CollisionRec = (Rectangle){ 0.0f, 0.0f, (float)RoomInfo.RoomTex.width, (float)RoomInfo.RoomTex.height};
 
-    
+
     Table.PositionSpawn = (Vector2){ 10, 0 };
     Table.img = LoadImage("src/location/laboratory/Table.png");
     Table.imgAnim = LoadTextureFromImage(Table.img);
@@ -80,58 +85,70 @@ void Scene1(void)
 
 
     SetTargetFPS(60);
-    
-    
-    while (!WindowShouldClose())    
+
+
+    while (!WindowShouldClose())
     {
-        
-        
+
+
         hero.MoveHero();
 
         hero.FramesIncrement();
-        
+<<<<<<< HEAD
+
         buildCell.countPoint(hero.points, buildCell.IsExist());
+=======
+        
+        points = buildCell.countPointRet(hero.points, buildCell.IsExist());
+>>>>>>> 1c4b730 (small changes)
         camera.target = (Vector2){ hero.ReturnPositionX() + 20, hero.ReturnPositionY() + 20};
 
-        
+
 
 
         BeginDrawing();
-        
-       
+
+
         ClearBackground(BLACK);
-        
-        BeginMode2D(camera);    
+
+        BeginMode2D(camera);
             DrawTextureEx(RoomInfo.RoomTex, RoomInfo.PositionSpawn, 0, 7.5, WHITE);
 
             panel.DrawObj();
 
             computer.DrawObj();
-            
+
             hero.collisionDetect(computer.ReturnRect(false));
             hero.DrawHero();
+            buildCell.clickEventListen(camera);
+            buildCell.countPoint(0, buildCell.IsExist());
             buildCell.Draw();
             //buildCell.DrawRect();
-            buildCell.clickEventListen();
+            
         EndMode2D();
-        
+
         //Log
+<<<<<<< HEAD
         hero.DrawStatistics();
-        
+
        DrawText(TextFormat("InBorder: %s", bool_cast(CheckCollisionRecs(hero.ReturnframeRec(), computer.ReturnRect(false)))), 30, 140, 20, WHITE);
+
+
+=======
+
         
+        //hero.DrawStatistics();
         
+        DrawText(TextFormat("InBorder: %s", bool_cast(CheckCollisionRecs(hero.ReturnframeRec(), computer.ReturnRect(false)))), 30, 140, 20, WHITE);
+        DrawText(TextFormat("Knowledge (Points): %04d", points), 30, 80, 20, WHITE);
+        
+>>>>>>> 1c4b730 (small changes)
 
 
         EndDrawing();
 
     }
-    
 
-    
+
+
 }
-
-
-
-
-
